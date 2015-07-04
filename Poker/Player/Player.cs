@@ -33,8 +33,15 @@ namespace Poker
 
         public void SetBet(int bet)
         {
-            this._currentBet += bet;
-            this._balance -= bet;
+            if (this._balance - bet < 0)
+            {
+                throw new Exception("Balance is less than null");
+            }
+            else
+            {
+                this._currentBet += bet;
+                this._balance -= bet;
+            }    
         }
 
         public void ClearBet()
@@ -44,8 +51,14 @@ namespace Poker
 
         public int balance
         {
-            get { return this.balance; }
+            get { return this._balance; }
         }
+
+        public int currentBet
+        {
+            get { return this._currentBet; }
+        }
+
 
         public bool disabled
         {

@@ -68,15 +68,25 @@ namespace Poker
             return _playersList[playerIndex].ShowCards();
         }
 
+        public int ShowPlayerBalance(int playerIndex)
+        {
+            return _playersList[playerIndex].balance;
+        }
+
+        public int activePlayerIndex
+        {
+            get { return _activePlayerIndex; }
+        }
+
         #endregion
 
         #region StageMethods
         public void NextPlayer()
         {
+            this._activePlayerIndex++;
+
             if (this._activePlayerIndex < this._playersCount)
             {
-                this._activePlayerIndex++;
-
                 if (_playersList[_activePlayerIndex].disabled)
                 {
                     this.NextPlayer();
@@ -100,6 +110,7 @@ namespace Poker
 
         #endregion
 
+        #region Bet Stage Methods
         public void SetPlayerBet(int bet) {
             _playersList[_activePlayerIndex].SetBet(bet);
         }
@@ -120,5 +131,25 @@ namespace Poker
 
             this.NextPlayer();
         }
+
+        public void CalcGameBank()
+        {
+            _gameBank = 0;
+
+            foreach(Player player in _playersList) {
+                this._gameBank += player.currentBet;
+            }
+        }
+
+        public int gameBank
+        {
+            get 
+            {
+                this.CalcGameBank();
+                return this._gameBank; 
+            }
+        }
+
+        #endregion
     }
 }
