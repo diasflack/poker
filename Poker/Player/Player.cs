@@ -49,6 +49,16 @@ namespace Poker
             this._currentBet = 0;
         }
 
+        public void ClearHand()
+        {
+            this._hand.FoldHand();
+        }
+
+        public void ClearDisabled()
+        {
+            this._disabled = false;
+        }
+
         public int balance
         {
             get { return this._balance; }

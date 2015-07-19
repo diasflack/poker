@@ -34,20 +34,12 @@ namespace Poker
             this.ReloadView();
         }
 
-        private void checkButton_Click(object sender, EventArgs e)
-        {
-            game.PlayerActionBet("Check");
-
-            this.ReloadView();
-        }
-
         private void raiseButton_Click(object sender, EventArgs e)
         {
             try
             {
                 int bet = (int)betInput.Value;
-                game.PlayerActionBet("Raise", bet);
-                betInput.Value = 0;
+                game.PlayerActionBet("Bet", bet);
             }
             catch (Exception ex)
             {
@@ -62,6 +54,7 @@ namespace Poker
         private void ReloadView()
         {
             activePlayerIndex.Text = game.activePlayerIndex.ToString();
+            currentGameStage.Text = game.currentGameStage;
             bankLabel.Text = game.gameBank.ToString();
 
             Player1Cards.Text = game.ShowPlayerCards(0);
@@ -69,6 +62,29 @@ namespace Poker
 
             player1BalanceLabel.Text = game.ShowPlayerBalance(0).ToString();
             player2BalanceLabel.Text = game.ShowPlayerBalance(1).ToString();
+
+            this.ControlsView();
+        }
+
+        private void ControlsView()
+        {
+            if (game.currentGameStage == "Bets")
+            {
+                betsPanel.Visible = true;
+                changeCardPanel.Visible = false;
+
+                betInput.Minimum = game.GetMinBet();
+                betInput.Value = game.GetMinBet();
+            }
+            else if (game.currentGameStage == "Change cards")
+            {
+                betsPanel.Visible = false;
+                changeCardPanel.Visible = true;
+            }
+            else
+            {
+
+            }
         }
     }
 }

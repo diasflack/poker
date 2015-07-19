@@ -34,6 +34,12 @@ namespace Poker
             this.TakeCard(takenCard);
         }
 
+        public void FoldHand()
+        {
+            _handLength = 0;
+            this._cardsList = new List<Card>();
+        }
+
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();

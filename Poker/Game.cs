@@ -10,15 +10,18 @@ namespace Poker
     {
         private Deck _gameDeck = new Deck();
         private int _gameBank = 0;
+        private int _currentRoundBet = 0;
         private List<Player> _playersList = new List<Player>();
         private int _playersCount = 0;
         private int _activePlayerIndex = 0;
         private string _currentGameStage = "Bets";
+        private int _currentGameStageIndex = 0; 
 
         private const int DEFAULT_PLAYERS_NUMBER = 2;
         private const string DEFAULT_PLAYERS_NAME = "Player";
         private const int DEFAULT_PLAYER_HAND_COUNT = 5;
         private const int MIN_BET = 10;
+        private readonly string[] GAME_STAGES = { "Bets", "Change cards", "Bets", "Open cards" };
 
         private int i;
 
@@ -28,9 +31,20 @@ namespace Poker
         }
 
         public void initGame() {
-            _currentGameStage = "Bets";
-
             this.FillPlayers();
+            this.initRound();
+        }
+
+        public void initRound()
+        {
+            this._currentGameStage = "Bets";
+            this._currentGameStageIndex = 0;
+            this._gameBank = 0;
+            this._currentRoundBet = 0;
+            this._activePlayerIndex = 0;
+            this._playersCount = _playersList.Count;
+
+            this.ClearPlayers();
             this.DealCards();
         }
 
@@ -45,11 +59,10 @@ namespace Poker
             }
         }
 
-        public void AddPlayer(string playersName = DEFAULT_PLAYERS_NAME)
+        private void AddPlayer(string playersName = DEFAULT_PLAYERS_NAME)
         {
             Player newPlayer = new Player(playersName);
             _playersList.Add(newPlayer);
-            _playersCount = _playersList.Count;
         }
 
         public void DealCards()
@@ -60,6 +73,16 @@ namespace Poker
                 {
                     player.TakeCard(_gameDeck.PullCard());
                 }
+            }
+        }
+
+        public void ClearPlayers()
+        {
+            foreach (Player player in _playersList)
+            {
+                player.ClearBet();
+                player.ClearHand();
+                player.ClearDisabled();
             }
         }
 
@@ -78,29 +101,50 @@ namespace Poker
             get { return _activePlayerIndex; }
         }
 
+        //_activePlayerIndex iterator
+        private bool NextActivePlayerIndex()
+        {
+            for(i = _activePlayerIndex; ++i < _playersCount; )
+            {
+                if (!_playersList[i].disabled)
+                {
+                    _activePlayerIndex = i;
+                    return true;
+                }
+            }
+            _activePlayerIndex = 0;
+            return false;
+        }
+
         #endregion
 
         #region StageMethods
         public void NextPlayer()
         {
-            this._activePlayerIndex++;
-
-            if (this._activePlayerIndex < this._playersCount)
+            if (this._playersCount == 1)
             {
-                if (_playersList[_activePlayerIndex].disabled)
-                {
-                    this.NextPlayer();
-                }
+                this.GameEnd();
             }
-            else
+            else if (!this.NextActivePlayerIndex())
             {
                 this.NextGameStage();
             }
+
         }
 
         public void NextGameStage()
         {
-            this._activePlayerIndex = 0;
+            switch(_currentGameStage)
+            {
+                case "Bets":
+
+                    if (this.currentRoundBet == 0)
+                    {
+                        _currentGameStage = GAME_STAGES[++_currentGameStageIndex];
+                    }
+                    break;
+            }
+
         }
 
         public string currentGameStage
@@ -119,17 +163,29 @@ namespace Poker
         {
             switch (action)
             {
-                case "Raise":
-                    this.SetPlayerBet(bet);
-                    break;
-                case "Check":
+                case "Bet":
+                    this.currentRoundBet = bet; 
+                    if (bet == 0)
+                    {
+                        this.PlayerActionBet("Check");
+                    }
+                    else
+                    {
+                        this.SetPlayerBet(bet);
+                    }
                     break;
                 case "Fold":
                     this._playersList[_activePlayerIndex].disabled = true;
+                    _playersCount--;
                     break;
             }
 
             this.NextPlayer();
+        }
+
+        public int GetMinBet()
+        {
+            return currentRoundBet;
         }
 
         public void CalcGameBank()
@@ -141,6 +197,29 @@ namespace Poker
             }
         }
 
+        private int currentRoundBet
+        {
+            get
+            {
+                if (this._currentRoundBet == 0)
+                {
+                    return MIN_BET;
+                }
+
+                if (this._currentRoundBet - this._playersList[_activePlayerIndex].currentBet < 0)
+                {
+                    throw new Exception("Bet is unacceptable");
+                }
+
+                return this._currentRoundBet - this._playersList[_activePlayerIndex].currentBet;
+            }
+
+            set
+            {
+                    this._currentRoundBet = this._playersList[_activePlayerIndex].currentBet + value;
+            }
+        }
+
         public int gameBank
         {
             get 
@@ -148,6 +227,15 @@ namespace Poker
                 this.CalcGameBank();
                 return this._gameBank; 
             }
+        }
+
+        #endregion
+
+        #region GameEnd Methods
+
+        private void GameEnd()
+        {
+            initRound();
         }
 
         #endregion

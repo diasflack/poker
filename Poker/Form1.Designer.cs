@@ -35,12 +35,18 @@
             this.label1 = new System.Windows.Forms.Label();
             this.activePlayerIndex = new System.Windows.Forms.Label();
             this.raiseButton = new System.Windows.Forms.Button();
-            this.checkButton = new System.Windows.Forms.Button();
             this.foldButton = new System.Windows.Forms.Button();
             this.betInput = new System.Windows.Forms.NumericUpDown();
             this.player1BalanceLabel = new System.Windows.Forms.Label();
             this.player2BalanceLabel = new System.Windows.Forms.Label();
+            this.currentGameStage = new System.Windows.Forms.Label();
+            this.betsPanel = new System.Windows.Forms.Panel();
+            this.changeCardPanel = new System.Windows.Forms.Panel();
+            this.changeCardButton = new System.Windows.Forms.Button();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             ((System.ComponentModel.ISupportInitialize)(this.betInput)).BeginInit();
+            this.betsPanel.SuspendLayout();
+            this.changeCardPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // newGameButton
@@ -100,28 +106,18 @@
             // 
             // raiseButton
             // 
-            this.raiseButton.Location = new System.Drawing.Point(32, 421);
+            this.raiseButton.Location = new System.Drawing.Point(16, 55);
             this.raiseButton.Name = "raiseButton";
             this.raiseButton.Size = new System.Drawing.Size(75, 23);
             this.raiseButton.TabIndex = 6;
-            this.raiseButton.Text = "Raise";
+            this.raiseButton.Text = "Bet";
             this.raiseButton.UseVisualStyleBackColor = true;
             this.raiseButton.Click += new System.EventHandler(this.raiseButton_Click);
-            // 
-            // checkButton
-            // 
-            this.checkButton.Location = new System.Drawing.Point(163, 421);
-            this.checkButton.Name = "checkButton";
-            this.checkButton.Size = new System.Drawing.Size(75, 23);
-            this.checkButton.TabIndex = 7;
-            this.checkButton.Text = "Check";
-            this.checkButton.UseVisualStyleBackColor = true;
-            this.checkButton.Click += new System.EventHandler(this.checkButton_Click);
             // 
             // foldButton
             // 
             this.foldButton.ImageAlign = System.Drawing.ContentAlignment.TopRight;
-            this.foldButton.Location = new System.Drawing.Point(298, 421);
+            this.foldButton.Location = new System.Drawing.Point(131, 55);
             this.foldButton.Name = "foldButton";
             this.foldButton.Size = new System.Drawing.Size(75, 23);
             this.foldButton.TabIndex = 8;
@@ -132,7 +128,7 @@
             // 
             // betInput
             // 
-            this.betInput.Location = new System.Drawing.Point(32, 395);
+            this.betInput.Location = new System.Drawing.Point(16, 19);
             this.betInput.Maximum = new decimal(new int[] {
             2500,
             0,
@@ -160,17 +156,74 @@
             this.player2BalanceLabel.TabIndex = 12;
             this.player2BalanceLabel.Text = "Player2 Balance";
             // 
+            // currentGameStage
+            // 
+            this.currentGameStage.AutoSize = true;
+            this.currentGameStage.Location = new System.Drawing.Point(295, 335);
+            this.currentGameStage.Name = "currentGameStage";
+            this.currentGameStage.Size = new System.Drawing.Size(101, 13);
+            this.currentGameStage.TabIndex = 13;
+            this.currentGameStage.Text = "Current game Stage";
+            // 
+            // betsPanel
+            // 
+            this.betsPanel.Controls.Add(this.betInput);
+            this.betsPanel.Controls.Add(this.raiseButton);
+            this.betsPanel.Controls.Add(this.foldButton);
+            this.betsPanel.Location = new System.Drawing.Point(32, 365);
+            this.betsPanel.Name = "betsPanel";
+            this.betsPanel.Size = new System.Drawing.Size(364, 86);
+            this.betsPanel.TabIndex = 14;
+            // 
+            // changeCardPanel
+            // 
+            this.changeCardPanel.Controls.Add(this.changeCardButton);
+            this.changeCardPanel.Controls.Add(this.checkedListBox1);
+            this.changeCardPanel.Location = new System.Drawing.Point(32, 365);
+            this.changeCardPanel.Name = "changeCardPanel";
+            this.changeCardPanel.Size = new System.Drawing.Size(492, 86);
+            this.changeCardPanel.TabIndex = 15;
+            // 
+            // changeCardButton
+            // 
+            this.changeCardButton.Location = new System.Drawing.Point(16, 55);
+            this.changeCardButton.Name = "changeCardButton";
+            this.changeCardButton.Size = new System.Drawing.Size(151, 23);
+            this.changeCardButton.TabIndex = 1;
+            this.changeCardButton.Text = "Change selected cards";
+            this.changeCardButton.UseVisualStyleBackColor = true;
+            // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.checkedListBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.checkedListBox1.ColumnWidth = 100;
+            this.checkedListBox1.ForeColor = System.Drawing.Color.Black;
+            this.checkedListBox1.HorizontalScrollbar = true;
+            this.checkedListBox1.Items.AddRange(new object[] {
+            "card 1",
+            "card 2",
+            "card 3",
+            "card 4",
+            "card 5 "});
+            this.checkedListBox1.Location = new System.Drawing.Point(16, 19);
+            this.checkedListBox1.Margin = new System.Windows.Forms.Padding(0);
+            this.checkedListBox1.MultiColumn = true;
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.checkedListBox1.Size = new System.Drawing.Size(476, 15);
+            this.checkedListBox1.TabIndex = 0;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(536, 456);
+            this.Controls.Add(this.changeCardPanel);
+            this.Controls.Add(this.betsPanel);
+            this.Controls.Add(this.currentGameStage);
             this.Controls.Add(this.player2BalanceLabel);
             this.Controls.Add(this.player1BalanceLabel);
-            this.Controls.Add(this.betInput);
-            this.Controls.Add(this.foldButton);
-            this.Controls.Add(this.checkButton);
-            this.Controls.Add(this.raiseButton);
             this.Controls.Add(this.activePlayerIndex);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Player2Cards);
@@ -180,6 +233,8 @@
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.betInput)).EndInit();
+            this.betsPanel.ResumeLayout(false);
+            this.changeCardPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -194,11 +249,15 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label activePlayerIndex;
         private System.Windows.Forms.Button raiseButton;
-        private System.Windows.Forms.Button checkButton;
         private System.Windows.Forms.Button foldButton;
         private System.Windows.Forms.NumericUpDown betInput;
         private System.Windows.Forms.Label player1BalanceLabel;
         private System.Windows.Forms.Label player2BalanceLabel;
+        private System.Windows.Forms.Label currentGameStage;
+        private System.Windows.Forms.Panel betsPanel;
+        private System.Windows.Forms.Panel changeCardPanel;
+        private System.Windows.Forms.Button changeCardButton;
+        private System.Windows.Forms.CheckedListBox checkedListBox1;
     }
 }
 
