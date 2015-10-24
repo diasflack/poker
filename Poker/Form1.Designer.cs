@@ -43,7 +43,7 @@
             this.betsPanel = new System.Windows.Forms.Panel();
             this.changeCardPanel = new System.Windows.Forms.Panel();
             this.changeCardButton = new System.Windows.Forms.Button();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.changeCardCheckList = new System.Windows.Forms.CheckedListBox();
             ((System.ComponentModel.ISupportInitialize)(this.betInput)).BeginInit();
             this.betsPanel.SuspendLayout();
             this.changeCardPanel.SuspendLayout();
@@ -177,8 +177,8 @@
             // 
             // changeCardPanel
             // 
+            this.changeCardPanel.Controls.Add(this.changeCardCheckList);
             this.changeCardPanel.Controls.Add(this.changeCardButton);
-            this.changeCardPanel.Controls.Add(this.checkedListBox1);
             this.changeCardPanel.Location = new System.Drawing.Point(32, 365);
             this.changeCardPanel.Name = "changeCardPanel";
             this.changeCardPanel.Size = new System.Drawing.Size(492, 86);
@@ -192,27 +192,28 @@
             this.changeCardButton.TabIndex = 1;
             this.changeCardButton.Text = "Change selected cards";
             this.changeCardButton.UseVisualStyleBackColor = true;
+            this.changeCardButton.Click += new System.EventHandler(this.changeCardButton_Click);
             // 
-            // checkedListBox1
+            // changeCardCheckList
             // 
-            this.checkedListBox1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.checkedListBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.checkedListBox1.ColumnWidth = 100;
-            this.checkedListBox1.ForeColor = System.Drawing.Color.Black;
-            this.checkedListBox1.HorizontalScrollbar = true;
-            this.checkedListBox1.Items.AddRange(new object[] {
+            this.changeCardCheckList.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.changeCardCheckList.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.changeCardCheckList.CheckOnClick = true;
+            this.changeCardCheckList.ColumnWidth = 100;
+            this.changeCardCheckList.ForeColor = System.Drawing.Color.Black;
+            this.changeCardCheckList.FormattingEnabled = true;
+            this.changeCardCheckList.HorizontalScrollbar = true;
+            this.changeCardCheckList.Items.AddRange(new object[] {
             "card 1",
             "card 2",
             "card 3",
             "card 4",
-            "card 5 "});
-            this.checkedListBox1.Location = new System.Drawing.Point(16, 19);
-            this.checkedListBox1.Margin = new System.Windows.Forms.Padding(0);
-            this.checkedListBox1.MultiColumn = true;
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.checkedListBox1.Size = new System.Drawing.Size(476, 15);
-            this.checkedListBox1.TabIndex = 0;
+            "card 5"});
+            this.changeCardCheckList.Location = new System.Drawing.Point(16, 9);
+            this.changeCardCheckList.MultiColumn = true;
+            this.changeCardCheckList.Name = "changeCardCheckList";
+            this.changeCardCheckList.Size = new System.Drawing.Size(451, 30);
+            this.changeCardCheckList.TabIndex = 16;
             // 
             // Form1
             // 
@@ -257,7 +258,7 @@
         private System.Windows.Forms.Panel betsPanel;
         private System.Windows.Forms.Panel changeCardPanel;
         private System.Windows.Forms.Button changeCardButton;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.CheckedListBox changeCardCheckList;
     }
 }
 

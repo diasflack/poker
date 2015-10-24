@@ -137,11 +137,13 @@ namespace Poker
             switch(_currentGameStage)
             {
                 case "Bets":
-
                     if (this.currentRoundBet == 0)
                     {
                         _currentGameStage = GAME_STAGES[++_currentGameStageIndex];
                     }
+                    break;
+                case "Change cards":
+                    _currentGameStage = GAME_STAGES[++_currentGameStageIndex];
                     break;
             }
 
@@ -229,6 +231,20 @@ namespace Poker
             }
         }
 
+        #endregion
+
+        #region Switch cards Stage Methods
+        
+        public void changePlayerCards(int[] checkedIndices)
+        {
+            foreach(int cardIndex in checkedIndices)
+            {
+                _playersList[_activePlayerIndex].SwapCard(cardIndex, _gameDeck.PullCard());
+            }
+
+            this.NextPlayer();
+        }
+       
         #endregion
 
         #region GameEnd Methods

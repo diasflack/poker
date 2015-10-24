@@ -52,9 +52,6 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Game stages\Bet.cs" />
-    <Compile Include="Game stages\CardsChange.cs" />
-    <Compile Include="Game stages\OpenCards.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Player\Hand.cs" />
     <Compile Include="Player\Player.cs" />

@@ -80,11 +80,32 @@ namespace Poker
             {
                 betsPanel.Visible = false;
                 changeCardPanel.Visible = true;
+                this.clearChangeCardCheckBoxList();
             }
             else
             {
 
             }
         }
+
+        
+
+        private void changeCardButton_Click(object sender, EventArgs e)
+        {
+            int[] checkedIndices = new int[changeCardCheckList.CheckedItems.Count];
+
+            for (int i = 0; i < checkedIndices.Length; i++)
+                checkedIndices[i] = changeCardCheckList.CheckedIndices[i];
+
+            game.changePlayerCards(checkedIndices);
+            this.ReloadView();
+        }
+
+        private void clearChangeCardCheckBoxList()
+        {
+            while (changeCardCheckList.CheckedIndices.Count > 0)
+                changeCardCheckList.SetItemChecked(changeCardCheckList.CheckedIndices[0], false);
+        }
+
     }
 }

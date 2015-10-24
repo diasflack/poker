@@ -44,6 +44,11 @@ namespace Poker
             }    
         }
 
+        public void SwapCard(int cardIndex, Card takenCard)
+        {
+            _hand.SwapCards(cardIndex, takenCard);
+        }
+
         public void ClearBet()
         {
             this._currentBet = 0;
@@ -68,7 +73,6 @@ namespace Poker
         {
             get { return this._currentBet; }
         }
-
 
         public bool disabled
         {
