@@ -52,7 +52,7 @@ namespace Poker
 
         public Card PullCard()
         {
-            if (_deckLength < 0)
+            if (_deckLength == 0)
             {
                 this.CreateDeck();
             }

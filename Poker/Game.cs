@@ -14,6 +14,7 @@ namespace Poker
         private List<Player> _playersList = new List<Player>();
         private int _playersCount = 0;
         private int _activePlayerIndex = 0;
+        private int _activePlayerIterator = 0;
         private string _currentGameStage = "Bets";
         private int _currentGameStageIndex = 0; 
 
@@ -104,15 +105,16 @@ namespace Poker
         //_activePlayerIndex iterator
         private bool NextActivePlayerIndex()
         {
-            for(i = _activePlayerIndex; ++i < _playersCount; )
+            for (_activePlayerIterator = _activePlayerIndex; ++_activePlayerIterator < _playersCount; )
             {
-                if (!_playersList[i].disabled)
+                if (!_playersList[_activePlayerIterator].disabled)
                 {
-                    _activePlayerIndex = i;
+                    _activePlayerIndex = _activePlayerIterator;
                     return true;
                 }
             }
             _activePlayerIndex = 0;
+            _activePlayerIterator = 0;
             return false;
         }
 
@@ -167,11 +169,7 @@ namespace Poker
             {
                 case "Bet":
                     this.currentRoundBet = bet; 
-                    if (bet == 0)
-                    {
-                        this.PlayerActionBet("Check");
-                    }
-                    else
+                    if (bet != 0)
                     {
                         this.SetPlayerBet(bet);
                     }
